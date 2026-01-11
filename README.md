@@ -30,7 +30,7 @@ d:\project\xungu
 │   │   ├── client.py        # 端侧，用于和大模型交互
 │   │   ├── core.py          # 智能体类，管理对话历史和 LLM 交互
 │   │   ├── engine.py        # 【执行引擎】执行 ReAct 循环 (Think -> Act -> Observe)
-│   │   └── prompts.py       # 【关键】包含“三阶段剧本”的 System Prompt 模板
+│   │   └── prompts.py       # System Prompt 模板集合
 │   └── tool/                # 【支持工具集】
 │       ├── search_dictionary.py  # 第1步：查义工具 (词典)
 │       ├── check_phonology.py    # 第2步：查音工具 (音韵)
