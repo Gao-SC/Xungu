@@ -3,7 +3,7 @@ import pymysql
 from pymysql.err import IntegrityError
 
 # -------------------------- 配置项 --------------------------
-JSONL_FILE_PATH = "./data/data.jsonl"  # 你的JSONL文件路径
+JSONL_FILE_PATH = "../data/data.jsonl"  # 你的JSONL文件路径
 MYSQL_CONFIG = {
 	"host": "127.0.0.1",
 	"port": 3306,

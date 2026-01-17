@@ -8,10 +8,10 @@ logger = logging.getLogger(__name__)
 class Client:
     def __init__(self):
         self.client = OpenAI(
-            api_key=os.getenv("DASHSCOPE_API_KEY"),
-            base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+            api_key= "sk-ba540df69ecc44d596e38717883956b4",#os.getenv("DASHSCOPE_API_KEY"),
+            base_url="https://api.deepseek.com/v1"
         )
-        self.model = "qwen-plus"
+        self.model = "deepseek-reasoner"
 
     def generate(self, messages: List[Dict[str, str]]) -> str:
         """

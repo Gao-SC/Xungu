@@ -1,5 +1,6 @@
 import json
-
+import pymysql
+from src.MySQLConfig import MYSQL_CONFIG
 from src.tool.base import BaseTool
 
 class PhonologyTool(BaseTool):
@@ -10,16 +11,29 @@ class PhonologyTool(BaseTool):
     )
 
     def run(self, char_a: str, char_b: str) -> str:
-        # 模拟数据：崇 vs 终 (均属 冬部)
-        # 上古拟音仅为示意
-        if char_a == "崇" and char_b == "终":
+        conn = None
+        result = {}
+        try:
+            conn = pymysql.connect(**MYSQL_CONFIG)
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            # 执行查询语句
+            query_sql = "SELECT * FROM mdx_dict WHERE headword = %s;"
+            cursor.execute(query_sql, (char_a,))
+            fetched_data1 = json.dumps(cursor.fetchone(), ensure_ascii=False)
+            cursor.execute(query_sql, (char_b,))
+            fetched_data2 = json.dumps(cursor.fetchone(), ensure_ascii=False)
+            print(fetched_data1)
+            print(fetched_data2)
+
             result = {
-                "char_a": {"onset": "崇母 (dz)", "rhyme_group": "冬部 (ong)"},
-                "char_b": {"onset": "章母 (t)", "rhyme_group": "冬部 (ong)"},
-                "relation": "叠韵 (Rhyme overlap)",
-                "conclusion": "二者韵部相同，声母发音部位相近，语音关系极密切。"
+                "char_a": fetched_data1,
+                "char_b": fetched_data2,
             }
-        else:
-            result = {"relation": "无明显语音关系"}
+        except pymysql.MySQLError as e:
+            print(f"SQL ERROR: {e}")
+        finally:
+            if conn:
+                conn.close()
 
         return json.dumps(result, ensure_ascii=False)

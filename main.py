@@ -34,7 +34,7 @@ def main():
     agent.bind_engine(engine)
 
     # 4. 创建查找实例
-    user_input = "在句子“朝济于西，崇朝其雨”中，注释写着“崇，终也”。请判定它的训诂类型。"
+    user_input = input("请输入问题\n")
 
     # 6. 智能体将自动处理：提取信息 -> 构建 Prompt -> 执行 ReAct 循环
     try:
